@@ -1,10 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#0284c7"/>
-      <stop offset="1" stop-color="#B8860B"/>
-    </linearGradient>
-  </defs>
+  <defs><linearGradient id="g" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#0284c7"/><stop offset="1" stop-color="#B8860B"/></linearGradient></defs>
   <rect width="64" height="64" rx="14.4" fill="url(#g)"/>
-  <text x="32" y="46" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif" font-weight="800" font-size="40" fill="#ffffff">Y</text>
+  <path d="M8.32,38.4 L32,41.92 L32,48.96 L8.32,47.68 Z" fill="#fff"/>
+  <path d="M55.68,38.4 L32,41.92 L32,48.96 L55.68,47.68 Z" fill="#fff"/>
+  <path d="M14.95,41.357 L30.579,44.877" stroke="#0284c7" stroke-opacity="0.35" stroke-width="1"/>
+  <path d="M49.05,41.357 L33.421,44.877" stroke="#0284c7" stroke-opacity="0.35" stroke-width="1"/>
+  <path d="M32,41.92 L32,48.96" stroke="#0284c7" stroke-opacity="0.6" stroke-width="1.2"/>
+  <circle cx="32" cy="32.486" r="14.08" fill="#fff"/>
+  <ellipse cx="32" cy="32.486" rx="5.914" ry="14.08" fill="none" stroke="#0284c7" stroke-width="1"/>
+  <line x1="17.92" y1="32.486" x2="46.08" y2="32.486" stroke="#0284c7" stroke-width="1"/>
 </svg>

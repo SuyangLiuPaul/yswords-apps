@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Page not found — YsWords &amp; News Insights</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="icons/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="theme-color" content="#fbf8f2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#17140d" media="(prefers-color-scheme: dark)">
+<style>
+  :root {
+    --bg: #fbf8f2; --surface: #ffffff; --text: #241f16; --text-muted: #6b6152;
+    --border: #e4dcc9; --blue: #0284c7; --blue-dark: #026aa1; --amber: #B8860B; --amber-dark: #8a6d1a;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #17140d; --surface: #221e15; --text: #f1ebdc; --text-muted: #bcb097; --border: #3c3524; }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; height: 100%; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue",
+      "Segoe UI", "Microsoft YaHei", Roboto, "Noto Sans SC", "Heiti SC", sans-serif;
+    min-height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center; padding: 24px;
+  }
+  .mark { width: 76px; height: 76px; border-radius: 18px; box-shadow: 0 6px 24px rgba(0,0,0,0.18); margin: 0 auto 26px; }
+  h1 { font-size: clamp(24px, 4vw, 32px); margin: 0 0 10px; }
+  p.zh { color: var(--text-muted); margin: 0 0 4px; font-size: 1.05em; }
+  p.en { color: var(--text-muted); margin: 0 0 28px; font-size: 0.95em; }
+  .home {
+    display: inline-block; padding: 10px 24px; border-radius: 999px;
+    background: linear-gradient(90deg, var(--blue), var(--amber));
+    color: #fff; text-decoration: none; font-weight: 700;
+  }
+  .home:hover { opacity: 0.9; }
+  a { color: inherit; }
+</style>
+</head>
+<body>
+  <div>
+    <svg class="mark" viewBox="0 0 64 64" aria-hidden="true">
+      <defs><linearGradient id="g" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#0284c7"/><stop offset="1" stop-color="#B8860B"/></linearGradient></defs>
+      <rect width="64" height="64" rx="14.4" fill="url(#g)"/>
+      <path d="M8.32,38.4 L32,41.92 L32,48.96 L8.32,47.68 Z" fill="#fff"/>
+      <path d="M55.68,38.4 L32,41.92 L32,48.96 L55.68,47.68 Z" fill="#fff"/>
+      <path d="M32,41.92 L32,48.96" stroke="#0284c7" stroke-opacity="0.6" stroke-width="1.2"/>
+      <circle cx="32" cy="32.486" r="14.08" fill="#fff"/>
+      <ellipse cx="32" cy="32.486" rx="5.914" ry="14.08" fill="none" stroke="#0284c7" stroke-width="1"/>
+      <line x1="17.92" y1="32.486" x2="46.08" y2="32.486" stroke="#0284c7" stroke-width="1"/>
+    </svg>
+    <h1>404 — Page not found</h1>
+    <p class="zh">这个页面不存在，但世界与圣言依然同在。</p>
+    <p class="en">This page doesn't exist, but the Word and the world are still here.</p>
+    <a class="home" href="./">Back home · 返回首页</a>
+  </div>
+</body>
+</html>
