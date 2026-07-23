@@ -1,7 +1,7 @@
 {
-  "name": "YsWords & News Insights",
+  "name": "YsWords, News Insights & SeekSparks",
   "short_name": "YsWords Apps",
-  "description": "Two free bilingual apps: a Bible reader with AI word study, and world news paired with a verse.",
+  "description": "Three free bilingual apps: a Bible reader with AI word study, world news paired with a verse, and structured original-language search.",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#fbf8f2",
