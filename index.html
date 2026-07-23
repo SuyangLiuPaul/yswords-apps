@@ -351,20 +351,30 @@
   .platform-card .pnote { color: var(--text-muted); font-size: 0.86em; flex: 1; margin: 0; }
 
   .dl {
-    display: inline-block;
-    align-self: flex-start;
-    padding: 6px 16px;
+    display: block;
+    align-self: stretch;
+    text-align: center;
+    padding: 8px 16px;
     border-radius: 999px;
     text-decoration: none;
     font-weight: 700;
     font-size: 0.9em;
-    color: #fff;
+    border: 1.5px solid transparent;
+    transition: transform .12s ease, filter .12s ease;
   }
-  .app.blue .dl { background: var(--blue); }
+  .dl:hover { transform: translateY(-1px); }
+  .dl:active { transform: translateY(0); }
+  .app.blue .dl { background: var(--blue); color: #fff; }
   .app.blue .dl:hover { background: var(--blue-dark); }
-  .app.amber .dl { background: var(--amber); }
+  .app.amber .dl { background: var(--amber); color: #fff; }
   .app.amber .dl:hover { background: var(--amber-dark); }
-  .dl.ghost { background: none; border: 1.5px solid var(--border); color: var(--text); }
+  /* "ghost" = same pill family as the primary Open button, just a
+     softer tint instead of a full fill, so a row of mixed Open/
+     Download cards still reads as one coordinated button style. */
+  .app.blue .dl.ghost { background: var(--blue-tint); color: var(--blue-dark); border-color: transparent; }
+  .app.blue .dl.ghost:hover { background: var(--blue); color: #fff; }
+  .app.amber .dl.ghost { background: var(--amber-tint); color: var(--amber-dark); border-color: transparent; }
+  .app.amber .dl.ghost:hover { background: var(--amber); color: #fff; }
 
   .callout {
     margin-top: 14px;
@@ -382,6 +392,40 @@
 
   .links-out { margin-top: 18px; font-size: 0.9em; }
   .links-out a { text-decoration: underline; text-underline-offset: 2px; }
+
+  /* ---------- about / contact ---------- */
+  section.about {
+    padding: 56px 0;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    scroll-margin-top: var(--nav-h);
+  }
+  section.about .wrap { max-width: 620px; }
+  section.about p { color: var(--text-muted); margin: 0 auto 24px; font-size: 1em; }
+  .contact-line {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 12px 22px;
+    border-radius: 999px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    text-decoration: none;
+    color: var(--text);
+    font-size: 0.92em;
+    transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+  }
+  .contact-line:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); border-color: var(--blue); }
+  .contact-line .sep { color: var(--text-muted); }
+  .contact-line .email {
+    font-weight: 800;
+    background: linear-gradient(90deg, var(--blue-dark), var(--amber-dark));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
 
   footer {
     text-align: center;
@@ -410,7 +454,15 @@
       "name": "YsWords & News Insights",
       "alternateName": "以经观世间，在世践圣言",
       "description": "Two free bilingual apps: YsWords, a Bible reader with AI word study and 13 translations, and News Insights, world news paired with a Bible verse.",
-      "inLanguage": ["en", "zh-Hans"]
+      "inLanguage": ["en", "zh-Hans"],
+      "author": { "@id": "https://suyangliupaul.github.io/yswords-apps/#author" }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://suyangliupaul.github.io/yswords-apps/#author",
+      "name": "Paul Liu",
+      "email": "paul.sy.liu@gmail.com",
+      "url": "https://github.com/SuyangLiuPaul"
     },
     {
       "@type": "SoftwareApplication",
@@ -474,6 +526,7 @@
     <div class="topnav-links">
       <a href="#yswords">YsWords</a>
       <a href="#news-insights">News Insights</a>
+      <a href="#about" class="i18n" data-en="About" data-zh="关于">About</a>
     </div>
     <button class="langtoggle" id="langToggle" type="button" aria-label="Switch language"></button>
   </div>
@@ -534,7 +587,7 @@
         <div class="platform-card">
           <div class="ptop"><span class="picon">🌐</span><span class="pname i18n" data-en="Web" data-zh="网页版">Web</span></div>
           <p class="pnote i18n" data-en="Works instantly in any modern browser — nothing to install." data-zh="在任意现代浏览器中即开即用，无需安装。">Works instantly in any modern browser — nothing to install.</p>
-          <a class="dl" href="https://yswords.netlify.app"><span class="i18n" data-en="Open yswords.netlify.app" data-zh="打开 yswords.netlify.app">Open yswords.netlify.app</span></a>
+          <a class="dl" href="https://yswords.netlify.app" title="yswords.netlify.app"><span class="i18n" data-en="Open" data-zh="打开">Open</span></a>
         </div>
         <div class="platform-card">
           <div class="ptop"><span class="picon">🤖</span><span class="pname">Android</span></div>
@@ -649,7 +702,7 @@
         <div class="platform-card">
           <div class="ptop"><span class="picon">🌐</span><span class="pname i18n" data-en="Web" data-zh="网页版">Web</span></div>
           <p class="pnote i18n" data-en="Works instantly in any modern browser — nothing to install." data-zh="在任意现代浏览器中即开即用，无需安装。">Works instantly in any modern browser — nothing to install.</p>
-          <a class="dl" href="https://news-insight.netlify.app"><span class="i18n" data-en="Open news-insight.netlify.app" data-zh="打开 news-insight.netlify.app">Open news-insight.netlify.app</span></a>
+          <a class="dl" href="https://news-insight.netlify.app" title="news-insight.netlify.app"><span class="i18n" data-en="Open" data-zh="打开">Open</span></a>
         </div>
         <div class="platform-card">
           <div class="ptop"><span class="picon">🤖</span><span class="pname">Android</span></div>
@@ -674,6 +727,19 @@
       </div>
       <div class="links-out i18n" data-en='Engineering docs (architecture, data schema, release notes): <a href="https://suyangliupaul.github.io/news_insights/">suyangliupaul.github.io/news_insights</a> · Source: <a href="https://github.com/SuyangLiuPaul/news_insights">github.com/SuyangLiuPaul/news_insights</a>' data-zh='技术文档（架构、数据结构、更新日志）：<a href="https://suyangliupaul.github.io/news_insights/">suyangliupaul.github.io/news_insights</a> · 源代码：<a href="https://github.com/SuyangLiuPaul/news_insights">github.com/SuyangLiuPaul/news_insights</a>'>Engineering docs (architecture, data schema, release notes): <a href="https://suyangliupaul.github.io/news_insights/">suyangliupaul.github.io/news_insights</a> · Source: <a href="https://github.com/SuyangLiuPaul/news_insights">github.com/SuyangLiuPaul/news_insights</a></div>
     </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="wrap">
+    <h3 class="section-label i18n" data-en="About" data-zh="关于">About</h3>
+    <p class="i18n" data-en="YsWords and News Insights are built and maintained by one developer, Paul Liu, as free, ad-free tools for reading Scripture and staying informed." data-zh="YsWords 与 News Insights 均由一人独立开发与维护——Paul Liu，致力于提供免费、无广告的圣经阅读与资讯工具。">YsWords and News Insights are built and maintained by one developer, Paul Liu, as free, ad-free tools for reading Scripture and staying informed.</p>
+    <a class="contact-line" href="mailto:paul.sy.liu@gmail.com?subject=YsWords%20%26%20News%20Insights">
+      <span class="i18n" data-en="Made by Paul Liu" data-zh="作者 Paul Liu">Made by Paul Liu</span>
+      <span class="sep">·</span>
+      <span class="i18n" data-en="Questions, feedback, or anything else:" data-zh="问题、反馈或其他事宜：">Questions, feedback, or anything else:</span>
+      <span class="email">paul.sy.liu@gmail.com</span>
+    </a>
   </div>
 </section>
 
