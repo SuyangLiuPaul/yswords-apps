@@ -1,0 +1,13 @@
+{
+  "name": "YsWords & News Insights",
+  "short_name": "YsWords Apps",
+  "description": "Two free bilingual apps: a Bible reader with AI word study, and world news paired with a verse.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#fbf8f2",
+  "theme_color": "#0284c7",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/favicon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

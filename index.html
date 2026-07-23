@@ -5,6 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>YsWords &amp; News Insights — bilingual apps for Scripture and the world</title>
 <meta name="description" content="Two free bilingual apps: YsWords, a Bible reader with AI word study and 13 translations, and News Insights, world news paired with a Bible verse. Try them on web, or download for Android, iOS, macOS, Windows, and Linux.">
+<link rel="canonical" href="https://suyangliupaul.github.io/yswords-apps/">
+<link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="icons/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="icons/favicon-16.png" sizes="16x16" type="image/png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#fbf8f2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#17140d" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://suyangliupaul.github.io/yswords-apps/">
+<meta property="og:title" content="YsWords &amp; News Insights — bilingual apps for Scripture and the world">
+<meta property="og:description" content="Two free bilingual apps: a Bible reader with AI word study, and world news paired with a verse. Web, Android, iOS, macOS, Windows, Linux.">
+<meta property="og:image" content="https://suyangliupaul.github.io/yswords-apps/icons/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="YsWords &amp; News Insights — bilingual apps for Scripture and the world">
+<meta name="twitter:description" content="Two free bilingual apps: a Bible reader with AI word study, and world news paired with a verse.">
+<meta name="twitter:image" content="https://suyangliupaul.github.io/yswords-apps/icons/og-image.png">
 <style>
   :root {
     --bg: #fbf8f2;
@@ -20,6 +41,7 @@
     --amber: #B8860B;
     --amber-dark: #8a6d1a;
     --amber-tint: #faf3e2;
+    --nav-h: 60px;
   }
   @media (prefers-color-scheme: dark) {
     :root {
@@ -34,6 +56,7 @@
     }
   }
   * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
   html, body { margin: 0; padding: 0; }
   body {
     background: var(--bg);
@@ -44,44 +67,125 @@
   }
   a { color: inherit; }
   img { max-width: 100%; display: block; }
+  :focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; border-radius: 4px; }
+  .app.amber :focus-visible { outline-color: var(--amber); }
 
   .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
 
+  .skip-link {
+    position: absolute;
+    left: -999px;
+    top: 12px;
+    background: var(--surface);
+    color: var(--text);
+    padding: 10px 18px;
+    border-radius: 8px;
+    z-index: 100;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+  }
+  .skip-link:focus { left: 16px; }
+
+  /* ---------- top nav ---------- */
+  nav.topbar {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    height: var(--nav-h);
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+  }
+  .topbar-inner {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 0.98em;
+    color: var(--text);
+    flex-shrink: 0;
+  }
+  .brandmark { width: 26px; height: 26px; border-radius: 7px; flex-shrink: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.2); }
+  .brand .amp { font-weight: 400; color: var(--text-muted); }
+  .topnav-links {
+    display: flex;
+    gap: 18px;
+    font-size: 0.9em;
+    font-weight: 600;
+    flex: 1;
+  }
+  .topnav-links a { text-decoration: none; color: var(--text-muted); transition: color .15s ease; }
+  .topnav-links a:hover { color: var(--text); }
+  @media (max-width: 640px) {
+    .topnav-links { display: none; }
+    .brand span { display: none; }
+  }
+
   .langtoggle {
-    position: fixed;
-    top: 16px;
-    right: 16px;
-    z-index: 20;
-    padding: 8px 16px;
+    margin-left: auto;
+    padding: 7px 15px;
     border-radius: 999px;
     border: 1.5px solid var(--border);
     background: var(--surface);
     color: var(--text);
     font-weight: 700;
-    font-size: 0.88em;
+    font-size: 0.85em;
     cursor: pointer;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    flex-shrink: 0;
   }
   .langtoggle:hover { border-color: var(--amber); color: var(--amber-dark); }
 
+  /* ---------- hero ---------- */
   header.hero {
-    padding: 72px 0 56px;
+    position: relative;
+    overflow: hidden;
+    padding: 76px 0 58px;
     text-align: center;
-    background: linear-gradient(160deg, var(--surface-alt), var(--bg));
     border-bottom: 1px solid var(--border);
+    scroll-margin-top: var(--nav-h);
   }
+  header.hero::before,
+  header.hero::after {
+    content: "";
+    position: absolute;
+    width: 640px;
+    height: 640px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--blob-color) 0%, transparent 68%);
+    opacity: 0.4;
+    z-index: 0;
+    pointer-events: none;
+  }
+  header.hero::before { --blob-color: var(--blue); top: -320px; left: -230px; }
+  header.hero::after { --blob-color: var(--amber); bottom: -350px; right: -230px; }
+  .hero .wrap { position: relative; z-index: 1; }
   .hero h1 {
     font-size: clamp(26px, 4.2vw, 40px);
     margin: 0 0 14px;
     letter-spacing: -0.01em;
+    animation: fadeUp 0.6s ease both;
   }
   .hero p {
     max-width: 620px;
     margin: 0 auto 30px;
     color: var(--text-muted);
     font-size: 1.08em;
+    animation: fadeUp 0.6s ease 0.08s both;
   }
-  .hero .jump { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .hero .jump { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; animation: fadeUp 0.6s ease 0.16s both; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .hero h1, .hero p, .hero .jump { animation: none; }
+  }
+
   .jumpcard {
     display: flex;
     align-items: center;
@@ -93,18 +197,21 @@
     font-size: 0.95em;
     border: 1.5px solid var(--border);
     background: var(--surface);
+    transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
   }
   .jumpcard img { width: 30px; height: 30px; border-radius: 8px; flex-shrink: 0; }
-  .jumpcard.blue:hover { border-color: var(--blue); color: var(--blue-dark); }
-  .jumpcard.amber:hover { border-color: var(--amber); color: var(--amber-dark); }
+  .jumpcard.blue:hover { border-color: var(--blue); color: var(--blue-dark); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(2,132,199,0.18); }
+  .jumpcard.amber:hover { border-color: var(--amber); color: var(--amber-dark); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(184,134,11,0.18); }
   @media (max-width: 560px) {
     .hero .jump { flex-direction: column; align-items: stretch; }
     .jumpcard { width: 100%; justify-content: center; text-align: center; }
   }
 
+  /* ---------- app sections ---------- */
   section.app {
     padding: 64px 0;
     border-bottom: 1px solid var(--border);
+    scroll-margin-top: var(--nav-h);
   }
   section.app:last-of-type { border-bottom: none; }
 
@@ -131,6 +238,15 @@
     margin: 36px 0 14px;
   }
 
+  /* ---------- reveal-on-scroll ---------- */
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity .5s ease, transform .5s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+  }
+
+  /* ---------- highlight cards w/ icons ---------- */
+  svg.hi { width: 20px; height: 20px; flex-shrink: 0; stroke-width: 1.7; }
   ul.highlights {
     list-style: none;
     margin: 0;
@@ -140,44 +256,51 @@
     gap: 10px;
   }
   ul.highlights li {
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 12px;
     padding: 13px 16px;
     font-size: 0.93em;
+    transition: transform .15s ease, box-shadow .15s ease;
   }
+  ul.highlights li:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
   ul.highlights li strong { display: inline; }
   .app.blue ul.highlights li { border-left: 3px solid var(--blue); }
+  .app.blue ul.highlights li svg.hi { color: var(--blue); }
   .app.amber ul.highlights li { border-left: 3px solid var(--amber); }
+  .app.amber ul.highlights li svg.hi { color: var(--amber); }
+  ul.highlights li .hitext { padding-top: 1px; }
+  ul.highlights.reveal li { transition-delay: calc(var(--i, 0) * 0.05s); }
 
-  .shots {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin: 4px 0;
-  }
-  .shots img {
-    width: 100%;
+  /* ---------- device-frame screenshots ---------- */
+  .shots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 4px 0; }
+  .frame {
+    display: flex;
+    flex-direction: column;
     height: 200px;
-    object-fit: cover;
-    object-position: top;
     border-radius: 10px;
+    overflow: hidden;
     border: 1px solid var(--border);
+    background: var(--surface);
+    text-decoration: none;
+    transition: transform .18s ease, box-shadow .18s ease;
   }
-  .shots img.tall { height: 420px; grid-row: span 2; }
+  .frame:hover { transform: translateY(-3px); box-shadow: 0 10px 26px rgba(0,0,0,0.14); }
+  .frame.tall { height: 420px; grid-row: span 2; }
+  .frame .bar { flex: 0 0 auto; height: 20px; display: flex; align-items: center; gap: 4px; padding: 0 8px; background: var(--surface-alt); border-bottom: 1px solid var(--border); }
+  .frame .bar span { width: 6px; height: 6px; border-radius: 50%; background: var(--border); }
+  .frame .imgwrap { flex: 1; overflow: hidden; }
+  .frame .imgwrap img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
   @media (max-width: 640px) {
     .shots { grid-template-columns: repeat(2, 1fr); }
-    .shots img.tall { grid-row: span 1; height: 200px; }
+    .frame.tall { grid-row: span 1; height: 200px; }
   }
 
-  .ni-preview {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 4px;
-    overflow: hidden;
-  }
-  .ni-preview svg { display: block; width: 100%; height: auto; }
+  .ni-preview.frame { height: auto; }
+  .ni-preview.frame svg { display: block; width: 100%; height: auto; }
   .ni-preview .cap {
     text-align: center;
     font-size: 0.78em;
@@ -185,6 +308,7 @@
     padding: 8px 0 2px;
   }
 
+  /* ---------- access: platform card grid ---------- */
   .access {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -192,49 +316,56 @@
     padding: 22px 24px;
     margin-top: 8px;
   }
-  table.access-table { width: 100%; border-collapse: collapse; font-size: 0.93em; table-layout: fixed; }
-  table.access-table td { padding: 10px 4px; border-bottom: 1px solid var(--border); vertical-align: top; word-wrap: break-word; overflow-wrap: break-word; }
-  table.access-table tr:last-child td { border-bottom: none; }
-  table.access-table td.platform { font-weight: 700; width: 110px; white-space: nowrap; }
-  table.access-table td.dlcell { width: 200px; }
-  table.access-table td.note { color: var(--text-muted); font-size: 0.92em; }
-
-  @media (max-width: 640px) {
-    table.access-table, table.access-table tbody, table.access-table tr, table.access-table td {
-      display: block;
-      width: 100% !important;
-    }
-    table.access-table tr { padding: 12px 0; border-bottom: 1px solid var(--border); }
-    table.access-table tr:last-child { border-bottom: none; }
-    table.access-table td { border-bottom: none; padding: 3px 0; }
-    table.access-table td.platform { margin-bottom: 2px; }
-    table.access-table td.dlcell { margin: 4px 0; }
+  .platform-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 12px; }
+  .platform-card {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 15px 16px;
+    background: var(--bg);
+    transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
   }
+  .platform-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
+  .platform-card .ptop { display: flex; align-items: center; gap: 10px; }
+  .platform-card .picon {
+    width: 34px; height: 34px; border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px; flex-shrink: 0;
+  }
+  .app.blue .platform-card .picon { background: var(--blue-tint); }
+  .app.amber .platform-card .picon { background: var(--amber-tint); }
+  .platform-card .pname { font-weight: 700; font-size: 0.95em; }
+  .platform-card .pnote { color: var(--text-muted); font-size: 0.86em; flex: 1; margin: 0; }
+
   .dl {
     display: inline-block;
+    align-self: flex-start;
     padding: 6px 16px;
     border-radius: 999px;
     text-decoration: none;
     font-weight: 700;
-    font-size: 0.92em;
+    font-size: 0.9em;
     color: #fff;
   }
   .app.blue .dl { background: var(--blue); }
   .app.blue .dl:hover { background: var(--blue-dark); }
   .app.amber .dl { background: var(--amber); }
   .app.amber .dl:hover { background: var(--amber-dark); }
-  .dl.ghost {
-    background: none;
-    border: 1.5px solid var(--border);
-    color: var(--text);
-  }
+  .dl.ghost { background: none; border: 1.5px solid var(--border); color: var(--text); }
+
   .callout {
     margin-top: 14px;
-    padding: 12px 16px;
+    padding: 13px 16px;
     border-radius: 10px;
     font-size: 0.88em;
     color: var(--text-muted);
+    display: flex;
+    gap: 11px;
+    align-items: flex-start;
   }
+  .callout .cicon { font-size: 1.2em; flex-shrink: 0; line-height: 1.3; }
   .app.blue .callout { background: var(--blue-tint); }
   .app.amber .callout { background: var(--amber-tint); }
 
@@ -243,21 +374,54 @@
 
   footer {
     text-align: center;
-    padding: 40px 24px 64px;
+    padding: 44px 24px 60px;
     color: var(--text-muted);
     font-size: 0.87em;
+    border-top: 1px solid var(--border);
+    background: linear-gradient(180deg, var(--surface-alt), var(--bg));
   }
+  footer .ficons { display: flex; justify-content: center; gap: 10px; margin-bottom: 18px; }
+  footer .ficons img { width: 34px; height: 34px; border-radius: 9px; box-shadow: 0 1px 6px rgba(0,0,0,0.18); }
   footer a { text-decoration: underline; text-underline-offset: 2px; }
   footer p { max-width: 560px; margin: 0 auto 10px; }
+  footer .copyright { margin-top: 16px; font-size: 0.9em; opacity: 0.75; }
 
   ::selection { background: var(--amber); color: #fff; }
 </style>
 </head>
 <body>
 
-<button class="langtoggle" id="langToggle" type="button" aria-label="Switch language"></button>
+<a class="skip-link i18n" href="#main-content" data-en="Skip to content" data-zh="跳至内容">Skip to content</a>
 
-<header class="hero">
+<!-- shared icon defs -->
+<svg style="display:none" aria-hidden="true">
+  <symbol id="icon-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><line x1="3" y1="12" x2="21" y2="12"/></symbol>
+  <symbol id="icon-columns" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="7.5" height="16" rx="1.5"/><rect x="13.5" y="4" width="7.5" height="16" rx="1.5"/></symbol>
+  <symbol id="icon-spark" viewBox="0 0 24 24"><path d="M12 3 L13.6 10.4 L21 12 L13.6 13.6 L12 21 L10.4 13.6 L3 12 L10.4 10.4 Z" fill="currentColor"/></symbol>
+  <symbol id="icon-landmark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10 L12 4 L21 10"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="5" y1="10" x2="5" y2="19"/><line x1="9.5" y1="10" x2="9.5" y2="19"/><line x1="14.5" y1="10" x2="14.5" y2="19"/><line x1="19" y1="10" x2="19" y2="19"/><line x1="3" y1="21" x2="21" y2="21"/></symbol>
+  <symbol id="icon-quiz" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.2a2.5 2.5 0 1 1 3.7 2.2c-.9.5-1.2 1-1.2 1.9"/><circle cx="12" cy="17" r="0.9" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="icon-cloud-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="11" r="2.6"/><circle cx="12.5" cy="8.5" r="3.4"/><circle cx="16" cy="11" r="2.3"/><rect x="6" y="10.5" width="12.5" height="3.5" rx="1.75"/><path d="M12 15v6"/><path d="M9 18l3 3 3-3"/></symbol>
+  <symbol id="icon-sync" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12a7 7 0 0 1 11.5-5.3"/><path d="M16.5 3.5v3.5h-3.5"/><path d="M19 12a7 7 0 0 1-11.5 5.3"/><path d="M7.5 20.5v-3.5h3.5"/></symbol>
+  <symbol id="icon-bookmark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h12a1 1 0 0 1 1 1V21l-7-4-7 4V4.5a1 1 0 0 1 1-1z"/></symbol>
+  <symbol id="icon-history" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></symbol>
+  <symbol id="icon-link-out" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6H5.5A1.5 1.5 0 0 0 4 7.5v11A1.5 1.5 0 0 0 5.5 20h11a1.5 1.5 0 0 0 1.5-1.5V15"/><path d="M14 4h6v6"/><path d="M20 4 11 13"/></symbol>
+</svg>
+
+<nav class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="#">
+      <svg class="brandmark" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="navg" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#0284c7"/><stop offset="1" stop-color="#B8860B"/></linearGradient></defs><rect width="64" height="64" rx="14.4" fill="url(#navg)"/><text x="32" y="46" text-anchor="middle" font-family="-apple-system,sans-serif" font-weight="800" font-size="40" fill="#fff">Y</text></svg>
+      <span>YsWords</span><span class="amp">&amp;</span><span>News Insights</span>
+    </a>
+    <div class="topnav-links">
+      <a href="#yswords">YsWords</a>
+      <a href="#news-insights">News Insights</a>
+    </div>
+    <button class="langtoggle" id="langToggle" type="button" aria-label="Switch language"></button>
+  </div>
+</nav>
+
+<header class="hero" id="main-content">
   <div class="wrap">
     <h1 class="i18n" data-en="Two apps. Scripture and the world, side by side." data-zh="两款应用，圣经与世界，并肩同行。">Two apps. Scripture and the world, side by side.</h1>
     <p class="i18n" data-en="Free, bilingual (English / 简体中文), and built to be actually used — not just installed once. Try either one straight in your browser, no account needed." data-zh="完全免费，中英双语，为长期使用而设计——不只是装上就忘。直接在浏览器中试用，无需注册。">Free, bilingual (English / 简体中文), and built to be actually used — not just installed once. Try either one straight in your browser, no account needed.</p>
@@ -276,76 +440,78 @@
 
 <section class="app blue" id="yswords">
   <div class="wrap">
-    <div class="app-head">
+    <div class="app-head reveal">
       <img class="icon" src="assets/yswords/icon.png" alt="YsWords icon" width="64" height="64">
       <div>
         <h2>YsWords <span class="zh">雅伟之言</span></h2>
       </div>
     </div>
-    <p class="tagline i18n" data-en="A bilingual Bible reader with AI-assisted word study, 13 translations, and a genuinely deep tool set for people who read the text closely." data-zh="一款中英双语圣经阅读应用，配备 AI 辅助解经、13 个译本，以及专为深度查经打造的丰富工具。">A bilingual Bible reader with AI-assisted word study, 13 translations, and a genuinely deep tool set for people who read the text closely.</p>
+    <p class="tagline i18n reveal" data-en="A bilingual Bible reader with AI-assisted word study, 13 translations, and a genuinely deep tool set for people who read the text closely." data-zh="一款中英双语圣经阅读应用，配备 AI 辅助解经、13 个译本，以及专为深度查经打造的丰富工具。">A bilingual Bible reader with AI-assisted word study, 13 translations, and a genuinely deep tool set for people who read the text closely.</p>
 
     <h3 class="section-label i18n" data-en="Highlights" data-zh="亮点功能">Highlights</h3>
-    <ul class="highlights">
-      <li><strong class="i18n" data-en="13 translations" data-zh="13 个译本">13 translations</strong><span class="i18n" data-en=" — KJV, LEB, NASB, plus six 简体/繁體 Chinese versions including 和合本雅伟版" data-zh=" —— KJV、LEB、NASB，以及包括和合本雅伟版在内的六个简体/繁體中文译本"> — KJV, LEB, NASB, plus six 简体/繁體 Chinese versions including 和合本雅伟版</span></li>
-      <li><strong class="i18n" data-en="Split View" data-zh="分屏阅读">Split View</strong><span class="i18n" data-en=" — two independent reading panes, side by side or stacked, each its own version" data-zh=" —— 两个独立阅读窗格，可并排或上下排列，各自选择译本"> — two independent reading panes, side by side or stacked, each its own version</span></li>
-      <li><strong class="i18n" data-en="AI word study" data-zh="AI 逐字查经">AI word study</strong><span class="i18n" data-en=" — tap any verse for interlinear Strong's, then AI exegesis scoped from single-verse to whole-Bible" data-zh=" —— 点击任意经文即可查看原文逐字注解，AI 解经范围可从单节扩展到全本圣经"> — tap any verse for interlinear Strong's, then AI exegesis scoped from single-verse to whole-Bible</span></li>
-      <li><strong class="i18n" data-en="Bible Evidence" data-zh="圣经考据">Bible Evidence</strong><span class="i18n" data-en=" — 225 archaeology / manuscript / history entries, cross-linked to scripture" data-zh=" —— 225 条考古、抄本与历史考据条目，与经文相互关联"> — 225 archaeology / manuscript / history entries, cross-linked to scripture</span></li>
-      <li><strong class="i18n" data-en="Bible Trivia" data-zh="圣经趣题">Bible Trivia</strong><span class="i18n" data-en=" — 68 curated entries on acrostics, numeric patterns, and divine-name codes" data-zh=" —— 68 条精选主题，涵盖离合诗、数字规律与神名密码"> — 68 curated entries on acrostics, numeric patterns, and divine-name codes</span></li>
-      <li><strong class="i18n" data-en="Offline Pack" data-zh="离线包">Offline Pack</strong><span class="i18n" data-en=" — one-tap download of Bibles, sermons, tools, and maps for full offline reading" data-zh=" —— 一键下载圣经、证道、工具与地图，完全离线阅读"> — one-tap download of Bibles, sermons, tools, and maps for full offline reading</span></li>
-      <li><strong class="i18n" data-en="Cloud sync" data-zh="云端同步">Cloud sync</strong><span class="i18n" data-en=" — optional Google sign-in syncs highlights, bookmarks, and notes across devices" data-zh=" —— 可选择通过 Google 登录，在多设备间同步标注、书签与笔记"> — optional Google sign-in syncs highlights, bookmarks, and notes across devices</span></li>
-      <li><strong class="i18n" data-en="Highlights, bookmarks &amp; notes" data-zh="标注、书签与笔记">Highlights, bookmarks &amp; notes</strong><span class="i18n" data-en=" — 6 highlight colors, per-verse notes, persistent everywhere" data-zh=" —— 6 种标注颜色，逐节笔记，随处保存"> — 6 highlight colors, per-verse notes, persistent everywhere</span></li>
+    <ul class="highlights reveal">
+      <li style="--i:0"><svg class="hi"><use href="#icon-globe"/></svg><span class="hitext"><strong class="i18n" data-en="13 translations" data-zh="13 个译本">13 translations</strong><span class="i18n" data-en=" — KJV, LEB, NASB, plus six 简体/繁體 Chinese versions including 和合本雅伟版" data-zh=" —— KJV、LEB、NASB，以及包括和合本雅伟版在内的六个简体/繁體中文译本"> — KJV, LEB, NASB, plus six 简体/繁體 Chinese versions including 和合本雅伟版</span></span></li>
+      <li style="--i:1"><svg class="hi"><use href="#icon-columns"/></svg><span class="hitext"><strong class="i18n" data-en="Split View" data-zh="分屏阅读">Split View</strong><span class="i18n" data-en=" — two independent reading panes, side by side or stacked, each its own version" data-zh=" —— 两个独立阅读窗格，可并排或上下排列，各自选择译本"> — two independent reading panes, side by side or stacked, each its own version</span></span></li>
+      <li style="--i:2"><svg class="hi"><use href="#icon-spark"/></svg><span class="hitext"><strong class="i18n" data-en="AI word study" data-zh="AI 逐字查经">AI word study</strong><span class="i18n" data-en=" — tap any verse for interlinear Strong's, then AI exegesis scoped from single-verse to whole-Bible" data-zh=" —— 点击任意经文即可查看原文逐字注解，AI 解经范围可从单节扩展到全本圣经"> — tap any verse for interlinear Strong's, then AI exegesis scoped from single-verse to whole-Bible</span></span></li>
+      <li style="--i:3"><svg class="hi"><use href="#icon-landmark"/></svg><span class="hitext"><strong class="i18n" data-en="Bible Evidence" data-zh="圣经考据">Bible Evidence</strong><span class="i18n" data-en=" — 225 archaeology / manuscript / history entries, cross-linked to scripture" data-zh=" —— 225 条考古、抄本与历史考据条目，与经文相互关联"> — 225 archaeology / manuscript / history entries, cross-linked to scripture</span></span></li>
+      <li style="--i:4"><svg class="hi"><use href="#icon-quiz"/></svg><span class="hitext"><strong class="i18n" data-en="Bible Trivia" data-zh="圣经趣题">Bible Trivia</strong><span class="i18n" data-en=" — 68 curated entries on acrostics, numeric patterns, and divine-name codes" data-zh=" —— 68 条精选主题，涵盖离合诗、数字规律与神名密码"> — 68 curated entries on acrostics, numeric patterns, and divine-name codes</span></span></li>
+      <li style="--i:5"><svg class="hi"><use href="#icon-cloud-download"/></svg><span class="hitext"><strong class="i18n" data-en="Offline Pack" data-zh="离线包">Offline Pack</strong><span class="i18n" data-en=" — one-tap download of Bibles, sermons, tools, and maps for full offline reading" data-zh=" —— 一键下载圣经、证道、工具与地图，完全离线阅读"> — one-tap download of Bibles, sermons, tools, and maps for full offline reading</span></span></li>
+      <li style="--i:6"><svg class="hi"><use href="#icon-sync"/></svg><span class="hitext"><strong class="i18n" data-en="Cloud sync" data-zh="云端同步">Cloud sync</strong><span class="i18n" data-en=" — optional Google sign-in syncs highlights, bookmarks, and notes across devices" data-zh=" —— 可选择通过 Google 登录，在多设备间同步标注、书签与笔记"> — optional Google sign-in syncs highlights, bookmarks, and notes across devices</span></span></li>
+      <li style="--i:7"><svg class="hi"><use href="#icon-bookmark"/></svg><span class="hitext"><strong class="i18n" data-en="Highlights, bookmarks &amp; notes" data-zh="标注、书签与笔记">Highlights, bookmarks &amp; notes</strong><span class="i18n" data-en=" — 6 highlight colors, per-verse notes, persistent everywhere" data-zh=" —— 6 种标注颜色，逐节笔记，随处保存"> — 6 highlight colors, per-verse notes, persistent everywhere</span></span></li>
     </ul>
 
     <h3 class="section-label i18n" data-en="See it" data-zh="应用截图">See it</h3>
-    <div class="shots">
-      <img class="tall" src="assets/yswords/screenshot_ipad_split_landscape.jpg" width="700" height="482" loading="lazy" alt="Split View on iPad — two Bible versions side by side">
-      <img src="assets/yswords/screenshot_dashboard_home.jpg" width="700" height="700" loading="lazy" alt="Dashboard">
-      <img src="assets/yswords/screenshot_word_study.jpg" width="700" height="700" loading="lazy" alt="Word-by-word interlinear study">
-      <img src="assets/yswords/screenshot_ai_panel.jpg" width="700" height="700" loading="lazy" alt="AI study panel">
-      <img src="assets/yswords/screenshot_bible_evidence.jpg" width="700" height="700" loading="lazy" alt="Bible Evidence archive">
+    <div class="shots reveal">
+      <a class="frame tall" href="assets/yswords/screenshot_ipad_split_landscape.jpg" target="_blank" rel="noopener"><span class="bar"><span></span><span></span><span></span></span><span class="imgwrap"><img src="assets/yswords/screenshot_ipad_split_landscape.jpg" width="700" height="482" loading="lazy" alt="Split View on iPad — two Bible versions side by side"></span></a>
+      <a class="frame" href="assets/yswords/screenshot_dashboard_home.jpg" target="_blank" rel="noopener"><span class="bar"><span></span><span></span><span></span></span><span class="imgwrap"><img src="assets/yswords/screenshot_dashboard_home.jpg" width="700" height="700" loading="lazy" alt="Dashboard"></span></a>
+      <a class="frame" href="assets/yswords/screenshot_word_study.jpg" target="_blank" rel="noopener"><span class="bar"><span></span><span></span><span></span></span><span class="imgwrap"><img src="assets/yswords/screenshot_word_study.jpg" width="700" height="700" loading="lazy" alt="Word-by-word interlinear study"></span></a>
+      <a class="frame" href="assets/yswords/screenshot_ai_panel.jpg" target="_blank" rel="noopener"><span class="bar"><span></span><span></span><span></span></span><span class="imgwrap"><img src="assets/yswords/screenshot_ai_panel.jpg" width="700" height="700" loading="lazy" alt="AI study panel"></span></a>
+      <a class="frame" href="assets/yswords/screenshot_bible_evidence.jpg" target="_blank" rel="noopener"><span class="bar"><span></span><span></span><span></span></span><span class="imgwrap"><img src="assets/yswords/screenshot_bible_evidence.jpg" width="700" height="700" loading="lazy" alt="Bible Evidence archive"></span></a>
     </div>
 
     <h3 class="section-label i18n" data-en="How to access it" data-zh="如何获取">How to access it</h3>
-    <div class="access">
-      <table class="access-table">
-        <tr>
-          <td class="platform">🌐 <span class="i18n" data-en="Web" data-zh="网页版">Web</span></td>
-          <td class="dlcell"><a class="dl" href="https://yswords.netlify.app"><span class="i18n" data-en="Open yswords.netlify.app" data-zh="打开 yswords.netlify.app">Open yswords.netlify.app</span></a></td>
-          <td class="note i18n" data-en="Works instantly in any modern browser — nothing to install." data-zh="在任意现代浏览器中即开即用，无需安装。">Works instantly in any modern browser — nothing to install.</td>
-        </tr>
-        <tr>
-          <td class="platform">🤖 Android</td>
-          <td class="dlcell"><a class="dl ghost" href="https://github.com/SuyangLiuPaul/YsWords/releases/latest"><span class="i18n" data-en="Download APK" data-zh="下载 APK">Download APK</span></a></td>
-          <td class="note i18n" data-en="Enable &quot;install from unknown sources&quot; if prompted." data-zh="如提示，请开启&quot;允许安装未知来源应用&quot;。">Enable "install from unknown sources" if prompted.</td>
-        </tr>
-        <tr>
-          <td class="platform">🍎 iOS</td>
-          <td class="dlcell"><a class="dl ghost" href="https://github.com/SuyangLiuPaul/YsWords/releases/latest"><span class="i18n" data-en="Download unsigned .ipa" data-zh="下载未签名 .ipa">Download unsigned .ipa</span></a></td>
-          <td class="note i18n" data-en="Needs your own Apple Developer account to sign and install — see the PWA option below for a no-signing path." data-zh="需要您自己的 Apple 开发者账号进行签名安装——如需免签名方式，请见下方 PWA 安装说明。">Needs your own Apple Developer account to sign and install — see the PWA option below for a no-signing path.</td>
-        </tr>
-        <tr>
-          <td class="platform">💻 macOS</td>
-          <td class="dlcell"><a class="dl ghost" href="https://github.com/SuyangLiuPaul/YsWords/releases/latest"><span class="i18n" data-en="Download .zip" data-zh="下载 .zip">Download .zip</span></a></td>
-          <td class="note i18n" data-en="Unsigned — right-click → Open the first time to bypass Gatekeeper." data-zh="未签名——首次打开请右键点击 → 打开，以绕过 Gatekeeper 限制。">Unsigned — right-click → Open the first time to bypass Gatekeeper.</td>
-        </tr>
-        <tr>
-          <td class="platform">🪟 Windows</td>
-          <td class="dlcell"><a class="dl ghost" href="https://github.com/SuyangLiuPaul/YsWords/releases/latest"><span class="i18n" data-en="Download .zip" data-zh="下载 .zip">Download .zip</span></a></td>
-          <td class="note i18n" data-en="Unpack and run the .exe inside." data-zh="解压后运行其中的 .exe 文件。">Unpack and run the .exe inside.</td>
-        </tr>
-        <tr>
-          <td class="platform">🐧 Linux</td>
-          <td class="dlcell"><a class="dl ghost" href="https://github.com/SuyangLiuPaul/YsWords/releases/latest"><span class="i18n" data-en="Download .tar.gz" data-zh="下载 .tar.gz">Download .tar.gz</span></a></td>
-          <td class="note i18n" data-en="x64 build; unpack and run." data-zh="x64 版本，解压后直接运行。">x64 build; unpack and run.</td>
-        </tr>
-      </table>
-      <div class="callout">
-        📱 <strong class="i18n" data-en="Easiest on phone, especially iOS:" data-zh="手机上最简单的方式（尤其是 iOS）：">Easiest on phone, especially iOS:</strong>
-        <span class="i18n" data-en=" open the web app in Safari or Chrome, then Share → Add to Home Screen. It installs like a native app and works fully offline after downloading the Offline Pack from Settings — no signing, no App Store." data-zh=" 在 Safari 或 Chrome 中打开网页版，然后点击&quot;分享&quot; → &quot;添加到主屏幕&quot;。安装后如同原生应用，在设置中下载离线包后即可完全离线使用——无需签名，无需 App Store。"> open the web app in Safari or Chrome, then Share → Add to Home Screen. It installs like a native app and works fully offline after downloading the Offline Pack from Settings — no signing, no App Store.</span>
+    <div class="access reveal">
+      <div class="platform-grid">
+        <div class="platform-card">
+          <div class="ptop"><span class="picon">🌐</span><span class="pname i18n" data-en="Web" data-zh="网页版">Web</span></div>
+          <p class="pnote i18n" data-en="Works instantly in any modern browser — nothing to install." data-zh="在任意现代浏览器中即开即用，无需安装。">Works instantly in any modern browser — nothing to install.</p>
+          <a class="dl" href="https://yswords.netlify.app"><span class="i18n" data-en="Open yswords.netlify.app" data-zh="打开 yswords.netlify.app">Open yswords.netlify.app</span></a>
+        </div>
+        <div class="platform-card">
+          <div class="ptop"><span class="picon">🤖</span><span class="pname">Android</span></div>
+          <p class="pnote i18n" data-en="Enable &quot;install from unknown sources&quot; if prompted." data-zh="如提示，请开启&quot;允许安装未知来源应用&quot;。">Enable "install from unknown sources" if prompted.</p>
+          <a class="dl ghost" href="https://github.com/SuyangLiuPaul/YsWords/releases/latest"><span class="i18n" data-en="Download APK" data-zh="下载 APK">Download APK</span></a>
+        </div>
+        <div class="platform-card">
+          <div class="ptop"><span class="picon">🍎</span><span class="pname">iOS</span></div>
+          <p class="pnote i18n" data-en="Needs your own Apple Developer account to sign and install — see the PWA option below for a no-signing path." data-zh="需要您自己的 Apple 开发者账号进行签名安装——如需免签名方式，请见下方 PWA 安装说明。">Needs your own Apple Developer account to sign and install — see the PWA option below for a no-signing path.</p>
+          <a class="dl ghost" href="https://github.com/SuyangLiuPaul/YsWords/releases/latest"><span class="i18n" data-en="Download unsigned .ipa" data-zh="下载未签名 .ipa">Download unsigned .ipa</span></a>
+        </div>
+        <div class="platform-card">
+          <div class="ptop"><span class="picon">💻</span><span class="pname">macOS</span></div>
+          <p class="pnote i18n" data-en="Unsigned — right-click → Open the first time to bypass Gatekeeper." data-zh="未签名——首次打开请右键点击 → 打开，以绕过 Gatekeeper 限制。">Unsigned — right-click → Open the first time to bypass Gatekeeper.</p>
+          <a class="dl ghost" href="https://github.com/SuyangLiuPaul/YsWords/releases/latest"><span class="i18n" data-en="Download .zip" data-zh="下载 .zip">Download .zip</span></a>
+        </div>
+        <div class="platform-card">
+          <div class="ptop"><span class="picon">🪟</span><span class="pname">Windows</span></div>
+          <p class="pnote i18n" data-en="Unpack and run the .exe inside." data-zh="解压后运行其中的 .exe 文件。">Unpack and run the .exe inside.</p>
+          <a class="dl ghost" href="https://github.com/SuyangLiuPaul/YsWords/releases/latest"><span class="i18n" data-en="Download .zip" data-zh="下载 .zip">Download .zip</span></a>
+        </div>
+        <div class="platform-card">
+          <div class="ptop"><span class="picon">🐧</span><span class="pname">Linux</span></div>
+          <p class="pnote i18n" data-en="x64 build; unpack and run." data-zh="x64 版本，解压后直接运行。">x64 build; unpack and run.</p>
+          <a class="dl ghost" href="https://github.com/SuyangLiuPaul/YsWords/releases/latest"><span class="i18n" data-en="Download .tar.gz" data-zh="下载 .tar.gz">Download .tar.gz</span></a>
+        </div>
       </div>
       <div class="callout">
-        🇨🇳 <strong class="i18n" data-en="In mainland China:" data-zh="中国大陆用户：">In mainland China:</strong>
-        <span class="i18n" data-en=" use " data-zh=" 请改用 "> use </span><a href="https://yswords-cn.netlify.app">yswords-cn.netlify.app</a><span class="i18n" data-en=" instead — the same app, built to work without Google services, which are blocked there." data-zh="——同一款应用，专门构建为无需 Google 服务即可运行，因为大陆无法访问 Google 服务。"> instead — the same app, built to work without Google services, which are blocked there.</span>
+        <span class="cicon">📱</span>
+        <span><strong class="i18n" data-en="Easiest on phone, especially iOS:" data-zh="手机上最简单的方式（尤其是 iOS）：">Easiest on phone, especially iOS:</strong>
+        <span class="i18n" data-en=" open the web app in Safari or Chrome, then Share → Add to Home Screen. It installs like a native app and works fully offline after downloading the Offline Pack from Settings — no signing, no App Store." data-zh=" 在 Safari 或 Chrome 中打开网页版，然后点击&quot;分享&quot; → &quot;添加到主屏幕&quot;。安装后如同原生应用，在设置中下载离线包后即可完全离线使用——无需签名，无需 App Store。"> open the web app in Safari or Chrome, then Share → Add to Home Screen. It installs like a native app and works fully offline after downloading the Offline Pack from Settings — no signing, no App Store.</span></span>
+      </div>
+      <div class="callout">
+        <span class="cicon">🇨🇳</span>
+        <span><strong class="i18n" data-en="In mainland China:" data-zh="中国大陆用户：">In mainland China:</strong>
+        <span class="i18n" data-en=" use " data-zh=" 请改用 "> use </span><a href="https://yswords-cn.netlify.app">yswords-cn.netlify.app</a><span class="i18n" data-en=" instead — the same app, built to work without Google services, which are blocked there." data-zh="——同一款应用，专门构建为无需 Google 服务即可运行，因为大陆无法访问 Google 服务。"> instead — the same app, built to work without Google services, which are blocked there.</span></span>
       </div>
       <div class="links-out i18n" data-en='Full feature list, developer setup, and release notes: <a href="https://github.com/SuyangLiuPaul/YsWords">github.com/SuyangLiuPaul/YsWords</a>' data-zh='完整功能列表、开发者部署说明与更新日志：<a href="https://github.com/SuyangLiuPaul/YsWords">github.com/SuyangLiuPaul/YsWords</a>'>Full feature list, developer setup, and release notes: <a href="https://github.com/SuyangLiuPaul/YsWords">github.com/SuyangLiuPaul/YsWords</a></div>
     </div>
@@ -354,26 +520,27 @@
 
 <section class="app amber" id="news-insights">
   <div class="wrap">
-    <div class="app-head">
+    <div class="app-head reveal">
       <img class="icon" src="assets/news-insights/icon.png" alt="News Insights icon" width="64" height="64">
       <div>
         <h2>News Insights <span class="zh">新闻洞见</span></h2>
       </div>
     </div>
-    <p class="tagline i18n" data-en="World news, read alongside Scripture — every headline is automatically paired by AI with a Bible verse and a short reflection connecting the two." data-zh="世界新闻，与圣经同读——每条新闻都由 AI 自动匹配一节经文，并附上简短的反思，连接新闻与信仰。">World news, read alongside Scripture — every headline is automatically paired by AI with a Bible verse and a short reflection connecting the two.</p>
+    <p class="tagline i18n reveal" data-en="World news, read alongside Scripture — every headline is automatically paired by AI with a Bible verse and a short reflection connecting the two." data-zh="世界新闻，与圣经同读——每条新闻都由 AI 自动匹配一节经文，并附上简短的反思，连接新闻与信仰。">World news, read alongside Scripture — every headline is automatically paired by AI with a Bible verse and a short reflection connecting the two.</p>
 
     <h3 class="section-label i18n" data-en="Highlights" data-zh="亮点功能">Highlights</h3>
-    <ul class="highlights">
-      <li><strong class="i18n" data-en="Bilingual throughout" data-zh="全程中英双语">Bilingual throughout</strong><span class="i18n" data-en=" — every headline, summary, verse, and reflection in both English and 简体中文" data-zh=" —— 每条新闻标题、摘要、经文与反思均提供英文与简体中文两种版本"> — every headline, summary, verse, and reflection in both English and 简体中文</span></li>
-      <li><strong class="i18n" data-en="World / China / Australia" data-zh="世界 / 中国 / 澳大利亚">World / China / Australia</strong><span class="i18n" data-en=" sections, filterable with one tap" data-zh=" 三大分类，一键筛选切换"> sections, filterable with one tap</span></li>
-      <li><strong class="i18n" data-en="Verse Lens card" data-zh="经文透镜卡片">Verse Lens card</strong><span class="i18n" data-en=" — the AI-picked verse, its text, a theme tag, and a reflection linking it to the story" data-zh=" —— AI 精选经文、经文原文、主题标签，以及连接新闻与经文的反思"> — the AI-picked verse, its text, a theme tag, and a reflection linking it to the story</span></li>
-      <li><strong class="i18n" data-en="Scroll into history" data-zh="下滑回顾历史">Scroll into history</strong><span class="i18n" data-en=" — reach the bottom of today's edition and it keeps paging in previous days" data-zh=" —— 滑到今日新闻底部后，会自动加载往期新闻"> — reach the bottom of today's edition and it keeps paging in previous days</span></li>
-      <li><strong class="i18n" data-en="Offline-first" data-zh="离线优先">Offline-first</strong><span class="i18n" data-en=" — the feed renders instantly from cache, then quietly refreshes in the background" data-zh=" —— 新闻列表从缓存中即时呈现，并在后台静默刷新"> — the feed renders instantly from cache, then quietly refreshes in the background</span></li>
-      <li><strong class="i18n" data-en="Always links back" data-zh="始终链接原文">Always links back</strong><span class="i18n" data-en=" — reads a short excerpt, then sends you to the original publisher for the full story" data-zh=" —— 提供简短摘要后，引导您前往原始发布方阅读完整报道"> — reads a short excerpt, then sends you to the original publisher for the full story</span></li>
+    <ul class="highlights reveal">
+      <li style="--i:0"><svg class="hi"><use href="#icon-globe"/></svg><span class="hitext"><strong class="i18n" data-en="Bilingual throughout" data-zh="全程中英双语">Bilingual throughout</strong><span class="i18n" data-en=" — every headline, summary, verse, and reflection in both English and 简体中文" data-zh=" —— 每条新闻标题、摘要、经文与反思均提供英文与简体中文两种版本"> — every headline, summary, verse, and reflection in both English and 简体中文</span></span></li>
+      <li style="--i:1"><svg class="hi"><use href="#icon-columns"/></svg><span class="hitext"><strong class="i18n" data-en="World / China / Australia" data-zh="世界 / 中国 / 澳大利亚">World / China / Australia</strong><span class="i18n" data-en=" sections, filterable with one tap" data-zh=" 三大分类，一键筛选切换"> sections, filterable with one tap</span></span></li>
+      <li style="--i:2"><svg class="hi"><use href="#icon-spark"/></svg><span class="hitext"><strong class="i18n" data-en="Verse Lens card" data-zh="经文透镜卡片">Verse Lens card</strong><span class="i18n" data-en=" — the AI-picked verse, its text, a theme tag, and a reflection linking it to the story" data-zh=" —— AI 精选经文、经文原文、主题标签，以及连接新闻与经文的反思"> — the AI-picked verse, its text, a theme tag, and a reflection linking it to the story</span></span></li>
+      <li style="--i:3"><svg class="hi"><use href="#icon-history"/></svg><span class="hitext"><strong class="i18n" data-en="Scroll into history" data-zh="下滑回顾历史">Scroll into history</strong><span class="i18n" data-en=" — reach the bottom of today's edition and it keeps paging in previous days" data-zh=" —— 滑到今日新闻底部后，会自动加载往期新闻"> — reach the bottom of today's edition and it keeps paging in previous days</span></span></li>
+      <li style="--i:4"><svg class="hi"><use href="#icon-cloud-download"/></svg><span class="hitext"><strong class="i18n" data-en="Offline-first" data-zh="离线优先">Offline-first</strong><span class="i18n" data-en=" — the feed renders instantly from cache, then quietly refreshes in the background" data-zh=" —— 新闻列表从缓存中即时呈现，并在后台静默刷新"> — the feed renders instantly from cache, then quietly refreshes in the background</span></span></li>
+      <li style="--i:5"><svg class="hi"><use href="#icon-link-out"/></svg><span class="hitext"><strong class="i18n" data-en="Always links back" data-zh="始终链接原文">Always links back</strong><span class="i18n" data-en=" — reads a short excerpt, then sends you to the original publisher for the full story" data-zh=" —— 提供简短摘要后，引导您前往原始发布方阅读完整报道"> — reads a short excerpt, then sends you to the original publisher for the full story</span></span></li>
     </ul>
 
     <h3 class="section-label i18n" data-en="See it" data-zh="应用截图">See it</h3>
-    <div class="ni-preview">
+    <div class="ni-preview frame reveal">
+      <span class="bar"><span></span><span></span><span></span></span>
       <svg viewBox="0 0 900 340" xmlns="http://www.w3.org/2000/svg" font-family="inherit">
         <rect width="900" height="340" fill="#fdf9f2"/>
         <text x="24" y="34" fill="#2a2418" font-size="18" font-weight="600">新闻洞见 News Insights</text>
@@ -418,32 +585,33 @@
     </div>
 
     <h3 class="section-label i18n" data-en="How to access it" data-zh="如何获取">How to access it</h3>
-    <div class="access">
-      <table class="access-table">
-        <tr>
-          <td class="platform">🌐 <span class="i18n" data-en="Web" data-zh="网页版">Web</span></td>
-          <td class="dlcell"><a class="dl" href="https://news-insight.netlify.app"><span class="i18n" data-en="Open news-insight.netlify.app" data-zh="打开 news-insight.netlify.app">Open news-insight.netlify.app</span></a></td>
-          <td class="note i18n" data-en="Works instantly in any modern browser — nothing to install." data-zh="在任意现代浏览器中即开即用，无需安装。">Works instantly in any modern browser — nothing to install.</td>
-        </tr>
-        <tr>
-          <td class="platform">🤖 Android</td>
-          <td class="dlcell"><a class="dl ghost" href="https://github.com/SuyangLiuPaul/news_insights/releases/latest"><span class="i18n" data-en="Download APK" data-zh="下载 APK">Download APK</span></a></td>
-          <td class="note i18n" data-en="Enable &quot;install from unknown sources&quot; if prompted." data-zh="如提示，请开启&quot;允许安装未知来源应用&quot;。">Enable "install from unknown sources" if prompted.</td>
-        </tr>
-        <tr>
-          <td class="platform">🍎 iOS</td>
-          <td class="dlcell"><a class="dl ghost" href="https://github.com/SuyangLiuPaul/news_insights/releases/latest"><span class="i18n" data-en="Download unsigned build" data-zh="下载未签名安装包">Download unsigned build</span></a></td>
-          <td class="note i18n" data-en="Needs your own Apple Developer account to sign — see the PWA option below instead." data-zh="需要您自己的 Apple 开发者账号进行签名——请见下方 PWA 安装方式。">Needs your own Apple Developer account to sign — see the PWA option below instead.</td>
-        </tr>
-        <tr>
-          <td class="platform">💻 macOS</td>
-          <td class="dlcell"><a class="dl ghost" href="https://github.com/SuyangLiuPaul/news_insights/releases/latest"><span class="i18n" data-en="Download .zip" data-zh="下载 .zip">Download .zip</span></a></td>
-          <td class="note i18n" data-en="Unsigned — right-click → Open the first time to bypass Gatekeeper." data-zh="未签名——首次打开请右键点击 → 打开，以绕过 Gatekeeper 限制。">Unsigned — right-click → Open the first time to bypass Gatekeeper.</td>
-        </tr>
-      </table>
+    <div class="access reveal">
+      <div class="platform-grid">
+        <div class="platform-card">
+          <div class="ptop"><span class="picon">🌐</span><span class="pname i18n" data-en="Web" data-zh="网页版">Web</span></div>
+          <p class="pnote i18n" data-en="Works instantly in any modern browser — nothing to install." data-zh="在任意现代浏览器中即开即用，无需安装。">Works instantly in any modern browser — nothing to install.</p>
+          <a class="dl" href="https://news-insight.netlify.app"><span class="i18n" data-en="Open news-insight.netlify.app" data-zh="打开 news-insight.netlify.app">Open news-insight.netlify.app</span></a>
+        </div>
+        <div class="platform-card">
+          <div class="ptop"><span class="picon">🤖</span><span class="pname">Android</span></div>
+          <p class="pnote i18n" data-en="Enable &quot;install from unknown sources&quot; if prompted." data-zh="如提示，请开启&quot;允许安装未知来源应用&quot;。">Enable "install from unknown sources" if prompted.</p>
+          <a class="dl ghost" href="https://github.com/SuyangLiuPaul/news_insights/releases/latest"><span class="i18n" data-en="Download APK" data-zh="下载 APK">Download APK</span></a>
+        </div>
+        <div class="platform-card">
+          <div class="ptop"><span class="picon">🍎</span><span class="pname">iOS</span></div>
+          <p class="pnote i18n" data-en="Needs your own Apple Developer account to sign — see the PWA option below instead." data-zh="需要您自己的 Apple 开发者账号进行签名——请见下方 PWA 安装方式。">Needs your own Apple Developer account to sign — see the PWA option below instead.</p>
+          <a class="dl ghost" href="https://github.com/SuyangLiuPaul/news_insights/releases/latest"><span class="i18n" data-en="Download unsigned build" data-zh="下载未签名安装包">Download unsigned build</span></a>
+        </div>
+        <div class="platform-card">
+          <div class="ptop"><span class="picon">💻</span><span class="pname">macOS</span></div>
+          <p class="pnote i18n" data-en="Unsigned — right-click → Open the first time to bypass Gatekeeper." data-zh="未签名——首次打开请右键点击 → 打开，以绕过 Gatekeeper 限制。">Unsigned — right-click → Open the first time to bypass Gatekeeper.</p>
+          <a class="dl ghost" href="https://github.com/SuyangLiuPaul/news_insights/releases/latest"><span class="i18n" data-en="Download .zip" data-zh="下载 .zip">Download .zip</span></a>
+        </div>
+      </div>
       <div class="callout">
-        📱 <strong class="i18n" data-en="Easiest on phone:" data-zh="手机上最简单的方式：">Easiest on phone:</strong>
-        <span class="i18n" data-en=" open the web app and use Share → Add to Home Screen — installs like a native app, no signing needed. (Windows and Linux desktop builds aren't published — the web app is the way to go there.)" data-zh=" 打开网页版后使用&quot;分享&quot; → &quot;添加到主屏幕&quot;——安装后如同原生应用，无需签名。（暂未提供 Windows 和 Linux 桌面版，建议直接使用网页版。）"> open the web app and use Share → Add to Home Screen — installs like a native app, no signing needed. (Windows and Linux desktop builds aren't published — the web app is the way to go there.)</span>
+        <span class="cicon">📱</span>
+        <span><strong class="i18n" data-en="Easiest on phone:" data-zh="手机上最简单的方式：">Easiest on phone:</strong>
+        <span class="i18n" data-en=" open the web app and use Share → Add to Home Screen — installs like a native app, no signing needed. (Windows and Linux desktop builds aren't published — the web app is the way to go there.)" data-zh=" 打开网页版后使用&quot;分享&quot; → &quot;添加到主屏幕&quot;——安装后如同原生应用，无需签名。（暂未提供 Windows 和 Linux 桌面版，建议直接使用网页版。）"> open the web app and use Share → Add to Home Screen — installs like a native app, no signing needed. (Windows and Linux desktop builds aren't published — the web app is the way to go there.)</span></span>
       </div>
       <div class="links-out i18n" data-en='Engineering docs (architecture, data schema, release notes): <a href="https://suyangliupaul.github.io/news_insights/">suyangliupaul.github.io/news_insights</a> · Source: <a href="https://github.com/SuyangLiuPaul/news_insights">github.com/SuyangLiuPaul/news_insights</a>' data-zh='技术文档（架构、数据结构、更新日志）：<a href="https://suyangliupaul.github.io/news_insights/">suyangliupaul.github.io/news_insights</a> · 源代码：<a href="https://github.com/SuyangLiuPaul/news_insights">github.com/SuyangLiuPaul/news_insights</a>'>Engineering docs (architecture, data schema, release notes): <a href="https://suyangliupaul.github.io/news_insights/">suyangliupaul.github.io/news_insights</a> · Source: <a href="https://github.com/SuyangLiuPaul/news_insights">github.com/SuyangLiuPaul/news_insights</a></div>
     </div>
@@ -451,8 +619,13 @@
 </section>
 
 <footer>
+  <div class="ficons">
+    <img src="assets/yswords/icon.png" alt="" width="34" height="34">
+    <img src="assets/news-insights/icon.png" alt="" width="34" height="34">
+  </div>
   <p class="i18n" data-en="News Insights reads from yswords-data, the same shared data pipeline built to serve YsWords — the AI verse-matching and translation engine behind both apps' Bible content." data-zh="News Insights 的数据来自 yswords-data——同一套为 YsWords 打造的共享数据管道，也是两款应用背后 AI 经文匹配与翻译的引擎。">News Insights reads from yswords-data, the same shared data pipeline built to serve YsWords — the AI verse-matching and translation engine behind both apps' Bible content.</p>
   <p class="i18n" data-en="Both apps are free, open-source, and independently maintained. News content and images belong to their original publishers." data-zh="两款应用均为免费、开源，独立维护。新闻内容与图片版权归原发布方所有。">Both apps are free, open-source, and independently maintained. News content and images belong to their original publishers.</p>
+  <p class="copyright">© 2026 YsWords &amp; News Insights</p>
 </footer>
 
 <script>
@@ -494,6 +667,24 @@
     current = current === 'zh' ? 'en' : 'zh';
     applyLang(current);
   });
+})();
+
+(function () {
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var targets = document.querySelectorAll('.reveal');
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    targets.forEach(function (el) { el.classList.add('in'); });
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  targets.forEach(function (el) { io.observe(el); });
 })();
 </script>
 
